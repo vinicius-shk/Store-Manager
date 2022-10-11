@@ -5,7 +5,7 @@ const connection = require('../../../src/models/database/connection');
 const { allProductsResponse } = require('../mocks/productsMocks');
 const { productsModel } = require('../../../src/models');
 
-describe('Test suit for products', function () {
+describe('Test suit for products Models', function () {
   describe('Test "/" get query', function () { 
     it('Should return an instance of "array"', async function () {
       sinon.stub(connection, 'execute').resolves([allProductsResponse]);
