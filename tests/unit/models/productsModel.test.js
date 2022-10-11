@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 
 const connection = require('../../../src/models/database/connection');
-const { allProductsResponse } = require('./mocks/productsMocks');
+const { allProductsResponse } = require('../mocks/productsMocks');
 const { productsModel } = require('../../../src/models');
 
 describe('Test suit for products', function () {
@@ -11,7 +11,6 @@ describe('Test suit for products', function () {
       sinon.stub(connection, 'execute').resolves([allProductsResponse]);
 
       const result = await productsModel.getAll();
-
       expect(result).to.be.a('array');
     });
     it('Should return correct data on sucess', async function () {
