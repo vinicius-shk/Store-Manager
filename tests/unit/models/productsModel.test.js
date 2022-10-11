@@ -10,33 +10,33 @@ describe('Test suit for products', function () {
     it('Should return an instance of "array"', async function () {
       sinon.stub(connection, 'execute').resolves([allProductsResponse]);
 
-      const [result] = await productsModel.getAll();
+      const result = await productsModel.getAll();
 
       expect(result).to.be.a('array');
     });
     it('Should return correct data on sucess', async function () {
       sinon.stub(connection, 'execute').resolves([allProductsResponse]);
 
-      const [result] = await productsModel.getAll();
+      const result = await productsModel.getAll();
 
       expect(result).to.deep.equal(allProductsResponse);
     });
   });
   describe('Test "/:id" get query', function () {
     const expected = allProductsResponse.filter((p) => p.id === 1);
-    it('Should return an instance of "array"', async function () {
-      sinon.stub(connection, 'execute').resolves(expected);
+    it('Should return an instance of "object"', async function () {
+      sinon.stub(connection, 'execute').resolves([expected]);
 
-      const [result] = await productsModel.getById();
+      const result = await productsModel.getById(1);
 
-      expect(result).to.be.a('array');
+      expect(result).to.be.a('object');
     });
     it('Should return correct data on sucess', async function () {
-      sinon.stub(connection, 'execute').resolves(expected);
+      sinon.stub(connection, 'execute').resolves([expected]);
 
-      const [result] = await productsModel.getById();
+      const result = await productsModel.getById(1);
 
-      expect(result).to.deep.equal(allProductsResponse);
+      expect(result).to.deep.equal(allProductsResponse[0]);
     });
   });
   afterEach(sinon.restore);
