@@ -1,6 +1,6 @@
 const express = require('express');
 
-const { productsRoutes } = require('./routes');
+const { productsRoutes, salesRoutes } = require('./routes');
 
 const app = express();
 
@@ -12,6 +12,7 @@ app.get('/', (_request, response) => {
 });
 
 app.use('/products', productsRoutes);
+app.use('/sales', salesRoutes);
 // não remova essa exportação, é para o avaliador funcionar
 // você pode registrar suas rotas normalmente, como o exemplo acima
 // você deve usar o arquivo index.js para executar sua aplicação 
