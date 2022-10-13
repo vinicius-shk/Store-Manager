@@ -11,31 +11,37 @@ describe('Test suit for products Services', function () {
     it('Should return an instance of "array"', async function () {
       sinon.stub(productsModel, 'getAll').resolves([allProductsResponse]);
 
-      const result = await productsService.getAll();
+      const { message } = await productsService.getAll();
+      const [expected] = message;
 
-      expect(result).to.be.a('array');
+      expect(expected).to.be.a('array');
     });
     it('Should return correct data on sucess', async function () {
       sinon.stub(productsModel, 'getAll').resolves([allProductsResponse]);
 
-      const [result] = await productsService.getAll();
+      const { message } = await productsService.getAll();
+      const [expected] = message;
 
-      expect(result).to.deep.equal(allProductsResponse);
+      expect(expected).to.deep.equal(allProductsResponse);
     });
   });
   describe('Test "/:id" get query', function () {
-    const expected = allProductsResponse.filter((p) => p.id === 1);
+    const mockValue = allProductsResponse.filter((p) => p.id === 1);
     it('Should return an instance of "array"', async function () {
-      sinon.stub(productsModel, 'getById').resolves([expected]);
+      sinon.stub(productsModel, 'getById').resolves([mockValue]);
 
-      const result = await productsService.getById(1);
-      expect(result).to.be.a('array');
+      const { message } = await productsService.getById(1);
+      const [expected] = message;
+
+      expect(expected).to.be.a('array');
     });
     it('Should return correct data on sucess', async function () {
-      sinon.stub(productsModel, 'getById').resolves([expected]);
-      const [[result]] = await productsService.getById(1);
+      sinon.stub(productsModel, 'getById').resolves([mockValue]);
+      
+      const { message } = await productsService.getById(1);
+      const [[expected]] = message;
 
-      expect(result).to.deep.equal(allProductsResponse[0]);
+      expect(expected).to.deep.equal(allProductsResponse[0]);
     });
   });
   afterEach(sinon.restore);

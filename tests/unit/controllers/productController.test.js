@@ -16,8 +16,8 @@ describe('Test suit for products Controller', function () {
     it('Should return correct data on sucess', async function () {
       const res = {};
       const req = {};
-      res.status = sinon.stub().resolves(res);
-      res.json = sinon.stub().resolves();
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
       sinon.stub(productsService, 'getAll').resolves({ type: null, message: [] });
 
       await productsController.getAll(req, res);
@@ -28,27 +28,17 @@ describe('Test suit for products Controller', function () {
   });
   describe('Test "/:id" get query', function () {
     const expected = allProductsResponse.filter((p) => p.id === 1);
-    it('Should return an instance of "object"', async function () {
-      const res = {};
-      const req = { params: { id: 1 } };
-      res.status = sinon.stub().resolves(res);
-      res.json = sinon.stub().resolves();
-      sinon.stub(productsService, 'getById').resolves({ type: null, message: expected });
-
-      await productsController.getById(req, res);
-
-      expect(result).to.be.a('object');
-    });
     it('Should return correct data on sucess', async function () {
       const res = {};
       const req = { params: { id: 1 } };
-      res.status = sinon.stub().resolves(res);
-      res.json = sinon.stub().resolves();
+      res.status = sinon.stub().returns(res);
+      res.json = sinon.stub().returns();
       sinon.stub(productsService, 'getById').resolves({ type: null, message: expected });
 
       await productsController.getById(req, res);
 
-      expect(result).to.deep.equal(allProductsResponse[0]);
+      expect(res.status).to.have.been.calledWith(200);
+      expect(res.json).to.have.been.calledWith(expected);
     });
   });
   afterEach(sinon.restore);

@@ -3,12 +3,13 @@ const productSchema = require('./validations/productSchema');
 
 const getAll = async () => {
   const response = await productsModel.getAll();
-  return response;
+  return { type: null, message: response };
 };
 
 const getById = async (id) => {
   const response = await productsModel.getById(id);
-  return response;
+  if (!response) return { type: 404, message: 'Product not found' };
+  return { type: null, message: response };
 };
 
 const postProduct = async (body) => {
