@@ -2,7 +2,10 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 
 const connection = require('../../../src/models/database/connection');
-const { allProductsResponse } = require('../mocks/productsMocks');
+const {
+  allProductsResponse,
+  productCreateResponse,
+  rightProductBody } = require('../mocks/productsMocks');
 const { productsModel } = require('../../../src/models');
 
 describe('Test suit for products Models', function () {
@@ -36,6 +39,21 @@ describe('Test suit for products Models', function () {
       const result = await productsModel.getById(1);
 
       expect(result).to.deep.equal(allProductsResponse[0]);
+    });
+  });
+  describe('Test "/" post query', function () {
+    it('Should return an instance of "object"', async function () {
+      sinon.stub(connection, 'execute').resolves([{ insertId: 42 }]);
+
+      const result = await productsModel.postProduct(rightProductBody);
+      expect(result).to.be.a('object');
+    });
+    it('Should return correct data on sucess', async function () {
+      sinon.stub(connection, 'execute').resolves([{ insertId: 4 }]);
+
+      const result = await productsModel.postProduct(rightProductBody);
+
+      expect(result).to.deep.equal(productCreateResponse);
     });
   });
   afterEach(sinon.restore);
