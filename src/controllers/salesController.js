@@ -1,5 +1,19 @@
 const { salesService } = require('../services');
 
+const getAll = async (_req, res) => {
+  const allProds = await salesService.getAll();
+
+  res.status(200).json(allProds.message);
+};
+
+const getById = async (req, res) => {
+  const id = Number(req.params.id);
+
+  const { type, message } = await salesService.getById(id);
+  if (type) return res.status(type).json({ message });
+  res.status(200).json(message);
+};
+
 const postSales = async (req, res) => {
   const validation1 = req.body.map((obj) => Object.keys(obj).includes('quantity'));
   const validation2 = req.body.map((obj) => Object.keys(obj).includes('productId'));
@@ -16,4 +30,6 @@ const postSales = async (req, res) => {
 
 module.exports = {
   postSales,
+  getAll,
+  getById,
 };

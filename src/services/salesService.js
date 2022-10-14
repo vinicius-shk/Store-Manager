@@ -1,6 +1,17 @@
 const { salesModel } = require('../models');
 const salesSchema = require('./validations/salesSchema');
 
+const getAll = async () => {
+  const response = await salesModel.getAll();
+  return { type: null, message: response };
+};
+
+const getById = async (id) => {
+  const response = await salesModel.getById(id);
+  if (!response) return { type: 404, message: 'Sale not found' };
+  return { type: null, message: response };
+};
+
 const postSales = async (body) => {
   const validation = body.reduce((acc, cur) => { 
     const { error } = salesSchema.validate(cur);
@@ -16,7 +27,8 @@ const postSales = async (body) => {
 
   return { type: null, message: response };
 };
-
 module.exports = {
+  getAll,
+  getById,
   postSales,
 };
