@@ -20,8 +20,22 @@ const postProduct = async (body) => {
   return { type: null, message: response };
 };
 
+const updateProduct = async (body, id) => {
+  const { error } = productSchema.validate(body);
+  if (error) {
+    const result = error.message.includes('required')
+      ? { type: 400, message: error.message }
+      : { type: 422, message: error.message };
+    return result;
+  }
+  const response = await productsModel.updateProduct(body, id);
+  if (response.info.includes('Rows matched: 0')) return { type: 404, message: 'Product not found' };
+  return { type: null, message: { id, name: body.name } };
+};
+
 module.exports = {
   getAll,
   getById,
   postProduct,
+  updateProduct,
 };

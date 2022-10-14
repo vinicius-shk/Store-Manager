@@ -51,16 +51,16 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3000/products/1",
-    "url": "http://localhost:3000/sales",
-    "method": "POST",
+    "url": "http://localhost:3000/products/200",
+    "method": "PUT",
     "sortNum": 0,
     "created": "2022-10-11T19:08:54.549Z",
-    "modified": "2022-10-13T23:05:22.561Z",
+    "modified": "2022-10-14T19:45:30.409Z",
     "headers": [],
     "params": [],
     "body": {
       "type": "json",
-      "raw": "[\n  {\n    \"productId\": 1,\n    \"quantity\": 1\n  },\n  {\n    \"productId\": 2,\n    \"quantity\": 5\n  }\n]",
+      "raw": "{\n  \"name\": \"filete2\"\n}",
       "form": []
     },
     "tests": []
