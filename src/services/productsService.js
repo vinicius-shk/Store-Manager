@@ -12,6 +12,15 @@ const getById = async (id) => {
   return { type: null, message: response };
 };
 
+const getByQuery = async (q) => {
+  if (!q) {
+    const allProds = await productsModel.getAll();
+    return { message: allProds };
+  }
+  const response = await productsModel.getByQuery(q);
+  return { message: response };
+};
+
 const postProduct = async (body) => {
   const { error } = productSchema.validate(body);
   if (error && error.message.includes('required')) return { type: 400, message: error.message };
@@ -45,4 +54,5 @@ module.exports = {
   postProduct,
   updateProduct,
   deleteProduct,
+  getByQuery,
 };

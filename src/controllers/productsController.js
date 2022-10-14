@@ -14,6 +14,13 @@ const getById = async (req, res) => {
   res.status(200).json(message);
 };
 
+const getByQuery = async (req, res) => {
+  const { q } = req.query;
+
+  const { message } = await productsService.getByQuery(q);
+  res.status(200).json(message);
+};
+
 const postProduct = async (req, res) => {
   const { type, message } = await productsService.postProduct(req.body);
   if (type) return res.status(type).json({ message });
@@ -40,4 +47,5 @@ module.exports = {
   postProduct,
   updateProduct,
   deleteProduct,
+  getByQuery,
 };

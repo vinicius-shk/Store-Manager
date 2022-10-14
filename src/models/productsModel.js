@@ -15,6 +15,13 @@ const getById = async (id) => {
   return prodById;
 };
 
+const getByQuery = async (q) => {
+  const [result] = await connection.execute(
+    `SELECT * FROM products WHERE name LIKE '%${q}%'`,
+  );
+  return result;
+};
+
 const postProduct = async (body) => {
   const [{ insertId }] = await connection.execute(
     'INSERT INTO products (name) VALUES (?)',
@@ -49,4 +56,5 @@ module.exports = {
   postProduct,
   updateProduct,
   deleteProduct,
+  getByQuery,
 };

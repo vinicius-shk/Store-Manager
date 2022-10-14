@@ -51,18 +51,19 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3000/products/1",
-    "url": "http://localhost:3000/products/2",
-    "method": "DELETE",
+    "url": "http://localhost:3000/products/search?q=Marte",
+    "method": "GET",
     "sortNum": 0,
     "created": "2022-10-11T19:08:54.549Z",
-    "modified": "2022-10-14T19:54:29.446Z",
+    "modified": "2022-10-14T20:31:36.280Z",
     "headers": [],
-    "params": [],
-    "body": {
-      "type": "json",
-      "raw": "{\n  \"name\": \"filete2\"\n}",
-      "form": []
-    },
+    "params": [
+      {
+        "name": "q",
+        "value": "Marte",
+        "isPath": false
+      }
+    ],
     "tests": []
   },
   {
@@ -70,11 +71,11 @@
     "colId": "history",
     "containerId": "",
     "name": "http://localhost:3000/products/2",
-    "url": "http://localhost:3000/sales/999",
+    "url": "http://localhost:3000/products",
     "method": "GET",
     "sortNum": 0,
     "created": "2022-10-11T19:08:57.765Z",
-    "modified": "2022-10-14T19:09:38.913Z",
+    "modified": "2022-10-14T20:28:23.526Z",
     "headers": [],
     "params": [],
     "tests": []
