@@ -51,8 +51,18 @@ const postSales = async (body) => {
   return response;
 };
 
+const deleteProduct = async (id) => {
+  const [result] = await connection.execute(
+    `DELETE FROM sales
+      WHERE id = ?;`,
+    [id],
+  );
+  return result;
+};
+
 module.exports = {
   postSales,
   getAll,
   getById,
+  deleteProduct,
 };

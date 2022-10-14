@@ -27,8 +27,16 @@ const postSales = async (body) => {
 
   return { type: null, message: response };
 };
+
+const deleteProduct = async (id) => {
+  const response = await salesModel.deleteProduct(id);
+  if (response.affectedRows === 0) return { type: 404, message: 'Sale not found' };
+  return { type: null, message: response };
+};
+
 module.exports = {
   getAll,
   getById,
   postSales,
+  deleteProduct,
 };

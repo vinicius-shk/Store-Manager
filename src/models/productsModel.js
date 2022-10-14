@@ -40,7 +40,6 @@ const deleteProduct = async (id) => {
       WHERE id = ?;`,
     [id],
   );
-  console.log(result);
   return result;
 };
 
