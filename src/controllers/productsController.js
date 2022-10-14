@@ -1,18 +1,9 @@
 const { productsService } = require('../services');
+const controller = require('../utils/Controller/querys');
 
-const getAll = async (_req, res) => {
-  const allProds = await productsService.getAll();
+const getAll = (_req, res) => controller.getAll(_req, res, 'products');
 
-  res.status(200).json(allProds.message);
-};
-
-const getById = async (req, res) => {
-  const id = Number(req.params.id);
-
-  const { type, message } = await productsService.getById(id);
-  if (type) return res.status(type).json({ message });
-  res.status(200).json(message);
-};
+const getById = (_req, res) => controller.getById(_req, res, 'products');
 
 const postProduct = async (req, res) => {
   const { type, message } = await productsService.postProduct(req.body);

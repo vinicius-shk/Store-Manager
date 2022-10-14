@@ -1,8 +1,9 @@
 const connection = require('./database/connection');
 const productsModel = require('./productsModel');
+const { getAll, getById } = require('../utils/Models/querys');
 
-const postSales = async (body) => {
-  const promises = body.map(({ productId }) => productsModel.getById(productId));
+const postMultipleSales = async (body) => {
+  const promises = body.map(({ productId }) => productsModel.getById(productId, 'products'));
   const results = await Promise.all(promises);
 
   const validation = results.some((item) => item === undefined);
@@ -25,5 +26,7 @@ const postSales = async (body) => {
 };
 
 module.exports = {
-  postSales,
+  postMultipleSales,
+  getAll,
+  getById,
 };
