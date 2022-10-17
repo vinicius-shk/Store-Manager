@@ -14,7 +14,7 @@ const getAll = async () => {
 };
 
 const getById = async (id) => {
-  const [prodById] = await connection.execute(
+  const [saleById] = await connection.execute(
     `SELECT date, sp.product_id AS productId, quantity
       FROM StoreManager.sales AS s
       INNER JOIN StoreManager.sales_products AS sp
@@ -24,8 +24,8 @@ const getById = async (id) => {
       ORDER BY productId;`,
     [id],
   );
-  if (prodById.length < 1) return null;
-  return prodById;
+  if (saleById.length < 1) return null;
+  return saleById;
 };
 
 const postSales = async (body) => {
@@ -51,6 +51,26 @@ const postSales = async (body) => {
   return response;
 };
 
+const updateSale = async (body, id) => {
+  const sale = await getById(id);
+  if (sale === null) return null;
+  const response = { saleId: id, itemsUpdated: [] };
+  const updates = await body.map(({ productId, quantity }) => {
+    const test = connection.execute(
+      `UPDATE sales_products
+        SET quantity = ?
+        WHERE product_id = ?
+        AND sale_id = ?`,
+      [quantity, productId, id],
+    );
+    response.itemsUpdated.push({ productId, quantity });
+    return test;
+  });
+  const treated = await Promise.all(updates);
+  if (treated.some((obj) => obj[0].info.includes('Rows matched: 0'))) return 404;
+  return response;
+};
+
 const deleteProduct = async (id) => {
   const [result] = await connection.execute(
     `DELETE FROM sales
@@ -65,4 +85,5 @@ module.exports = {
   getAll,
   getById,
   deleteProduct,
+  updateSale,
 };
