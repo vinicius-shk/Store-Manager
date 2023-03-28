@@ -7,6 +7,8 @@ Projeto Store-Manager é uma REST API desenvolvida para gerenciar um sistema de 
 - **Javascript**
 - **Node.js**
 - **MySQL**
+- **Express.js**
+- **Chai**
 
 ### Para rodar localmente
 
